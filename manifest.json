@@ -1,0 +1,8 @@
+{
+    "name": "PokeCards",
+    "short_name": "Deck",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#04aaf7"
+}
