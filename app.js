@@ -19,10 +19,13 @@ function renderCard(pokemon){
     const card = document.getElementById('card');
     card.innerHTML = 
     `
-    <div class ="card">
-        <img src ="${pokemon.image}">
-        <p>${pokemon.name}</p>
-        <button id="saveBtn">Guardar</button>
+    <div class ="max-w-md bg-white border border-gray-200 rounded-lg shadow-sm">
+        <img class="rounded-t-lg w-full bg-slate-200" 
+        src ="${pokemon.image}">          
+
+        <h5 class="mb-2 font-bold text-gray-900 text-2xl tracking-tight capitalize">${pokemon.name}</h5>
+        <p class="mb-3 font-normal text-gray-700">#${pokemon.id}</p>
+        <button id="saveBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bf-blue-700 rounded-lg hover:bg-blue-800">Guardar</button>
     </div>
     `;
     document.getElementById('saveBtn').onclick = () => {
