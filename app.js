@@ -133,4 +133,4 @@ async function clearDeck(){
     db.destroy();
 }
 
-loadDeck();
+document.addEventListener('DOMContentLoaded', loadDeck);
