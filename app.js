@@ -34,12 +34,12 @@ document.getElementById('openCard').onclick = async () => {
 function renderCard(pokemon) {
     const card = document.getElementById('card');
     const bgColor = typeColors[pokemon.types[0].type.name] || "from-slate-500 to-slate-700";
-
+    const pokemonGif = pokemon.sprites.other?.showdown?.front_default ?? pokemon.sprites.back_default;
     card.innerHTML =
     `
     <div class ="max-w-md bg-gradient-to-br ${bgColor} rounded-lg shadow-md overflow-hidden">
         <img class="rounded-t-lg w-full bg-slate-200" 
-        src ="${pokemon.sprites.other.showdown.front_default}">
+        src ="${pokemonGif}">
 
         <div class="p-5">
             <h5 class="mb-2 font-bold text-gray-900 text-2xl tracking-tight capitalize">${pokemon.name}</h5>
@@ -73,9 +73,10 @@ function renderDeck(pokemons){
     const deck = document.getElementById('deck');
     deck.innerHTML = '';
     pokemons.forEach((pokemon, index) => {
+        const pokemonGif = pokemon.doc.sprites.other?.showdown?.front_default ?? pokemon.doc.sprites.back_default;
         deck.insertAdjacentHTML('beforeend', `
         <div class="bg-white rounded-xl p-4 shadow-lg">
-            <img src ="${pokemon.doc.sprites.other.showdown.front_default}" class="w-full h-32 object-contain">
+            <img src ="${pokemonGif}" class="w-full h-32 object-contain">
             <h3 class="text-black text-xl font-bold capitalize">${pokemon.doc.name}</h3>
             <p class="text-gray-700"> lvl: ${pokemon.doc.level}</p>
             <button id="btn-modal-${index}" data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-black bg-brand border bg-blue-700 border-transparent hover:bg-blue-800 focus:ring-1 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" type="button"> Detalhes da Carta
@@ -84,11 +85,11 @@ function renderDeck(pokemons){
         `);
         document.getElementById(`btn-modal-${index}`).onclick = () => {
             showDetails(pokemon.doc);
-        };
-        if (typeof initFlowbite === 'function') {
-        initFlowbite();
-    }
+        };  
     });
+    if (typeof initFlowbite === 'function'){
+        initFlowbite();
+    } 
 }
 
 function showToast(message){
