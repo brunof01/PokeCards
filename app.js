@@ -132,3 +132,5 @@ document.getElementById('clearDeck').onclick = async () =>{
 async function clearDeck(){
     db.destroy();
 }
+
+loadDeck();
