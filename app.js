@@ -1,15 +1,26 @@
 const typeColors = {
+    normal: "from-gray-400 to-gray-600",
     fire: "from-red-500 to-orange-500",
     water: "from-blue-500 to-cyan-500",
-    grass: "from-green-500 to-lime-500",
     electric: "from-yellow-300 to-yellow-600",
+    grass: "from-green-500 to-lime-500",
+    ice: "from-cyan-300 to-sky-500",
+    fighting: "from-red-700 to-red-900",
+    poison: "from-purple-500 to-fuchsia-700",
+    ground: "from-amber-500 to-yellow-700",
+    flying: "from-sky-400 to-indigo-500",
     psychic: "from-pink-500 to-purple-500",
+    bug: "from-lime-500 to-green-700",
+    rock: "from-yellow-700 to-stone-800",
     ghost: "from-purple-700 to-indigo-900",
-    normal: "from-gray-400 to-gray-600"
+    dragon: "from-indigo-600 to-violet-800",
+    dark: "from-gray-700 to-black",
+    steel: "from-slate-400 to-slate-700",
+    fairy: "from-pink-300 to-rose-500"
 };
 
 async function getPokemon() {
-    const id = Math.floor(Math.random() * 151) + 1;
+    const id = Math.floor(Math.random() * 1025) + 1;
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const data = await response.json();
     return data;
