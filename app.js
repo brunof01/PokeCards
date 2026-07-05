@@ -120,3 +120,14 @@ function showDetails(pokemon){
     </div>
     `;
 } 
+
+document.getElementById('clearDeck').onclick = async () =>{
+    if (confirm("Tem certeza que quer apagar seu deck?")) {
+        await clearDeck();
+        location.reload();
+    }
+}
+
+async function clearDeck(){
+    db.destroy();
+}
