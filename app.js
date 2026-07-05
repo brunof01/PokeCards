@@ -37,7 +37,7 @@ function renderCard(pokemon) {
 
     card.innerHTML =
     `
-    <div class ="max-w-md bg-gradient-to-br ${bgColor} rounded-lg shadow-md overflow-hidden animate-pulse">
+    <div class ="max-w-md bg-gradient-to-br ${bgColor} rounded-lg shadow-md overflow-hidden">
         <img class="rounded-t-lg w-full bg-slate-200" 
         src ="${pokemon.sprites.other.showdown.front_default}">
 
