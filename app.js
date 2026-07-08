@@ -36,22 +36,21 @@ function renderCard(pokemon) {
     const bgColor = typeColors[pokemon.types[0].type.name] || "from-slate-500 to-slate-700";
     const pokemonGif = pokemon.sprites.other?.showdown?.front_default ?? pokemon.sprites.back_default;
     card.innerHTML =
-    `
-    <div class ="max-w-md bg-gradient-to-br ${bgColor} rounded-lg shadow-md overflow-hidden">
-        <img class="rounded-t-lg w-full bg-slate-200" 
-        src ="${pokemonGif}">
+        `
+    <div class="max-w-md rounded-lg shadow-md overflow-hidden">
 
-        <div class="p-5">
-            <h5 class="mb-2 font-bold text-gray-900 text-2xl tracking-tight capitalize">${pokemon.name}</h5>
-
-            <p class="mb-3 font-normal text-gray-700">#${pokemon.id}</p>
-            
-
-            <button id="saveBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">Guardar</button>
-
+        <div class="bg-white/10 backdrop-blur-md rounded-t-lg w-full flex justify-center p-4">
+            <img class="w-40 h-40 object-contain" src="${pokemonGif}">
         </div>
-        
+
+        <div class="p-5 bg-gradient-to-br ${bgColor}">
+            <h5 class="mb-2 font-bold text-gray-900 text-2xl tracking-tight capitalize">${pokemon.name}</h5>
+            <p class="mb-3 font-normal text-gray-700">#${pokemon.id}</p>
+            <button id="saveBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">Guardar</button>
+        </div>
+
     </div>
+
     `;
     document.getElementById('saveBtn').onclick = () => {
         addToDeck(pokemon);
@@ -69,7 +68,7 @@ async function loadDeck() {
     renderDeck(result.rows);
 }
 
-function renderDeck(pokemons){
+function renderDeck(pokemons) {
     const deck = document.getElementById('deck');
     deck.innerHTML = '';
     pokemons.forEach((pokemon, index) => {
@@ -85,30 +84,30 @@ function renderDeck(pokemons){
         `);
         document.getElementById(`btn-modal-${index}`).onclick = () => {
             showDetails(pokemon.doc);
-        };  
+        };
     });
-    if (typeof initFlowbite === 'function'){
+    if (typeof initFlowbite === 'function') {
         initFlowbite();
-    } 
+    }
 }
 
-function showToast(message){
+function showToast(message) {
     const toast = document.getElementById('toast-sucess');
     const toastMessage = document.getElementById('toast-message');
 
     toastMessage.innerText = message;
     toast.classList.remove('hidden');
 
-    setTimeout(() =>{
+    setTimeout(() => {
         toast.classList.add('hidden');
     }, 3000);
 }
 
-function showDetails(pokemon){
+function showDetails(pokemon) {
     const modalContainer = document.getElementById('modal-content');
     const bgColor = typeColors[pokemon.types[0].type.name] || "from-slate-500 to-slate-700";
     modalContainer.innerHTML =
-    `
+        `
     <div class ="max-w-md bg-gradient-to-br ${bgColor} rounded-lg shadow-md overflow-hidden">
 
         <div class="p-5">
@@ -120,16 +119,16 @@ function showDetails(pokemon){
         
     </div>
     `;
-} 
+}
 
-document.getElementById('clearDeck').onclick = async () =>{
+document.getElementById('clearDeck').onclick = async () => {
     if (confirm("Tem certeza que quer apagar seu deck?")) {
         await clearDeck();
         location.reload();
     }
 }
 
-async function clearDeck(){
+async function clearDeck() {
     db.destroy();
 }
 
