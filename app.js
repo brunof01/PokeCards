@@ -34,13 +34,12 @@ document.getElementById('openCard').onclick = async () => {
 function renderCard(pokemon) {
     const card = document.getElementById('card');
     const bgColor = typeColors[pokemon.types[0].type.name] || "from-slate-500 to-slate-700";
-    const pokemonGif = pokemon.sprites.other?.showdown?.front_default ?? pokemon.sprites.back_default;
     card.innerHTML =
         `
     <div class="max-w-md rounded-lg shadow-md overflow-hidden">
 
         <div class="bg-white/10 backdrop-blur-md rounded-t-lg w-full flex justify-center p-4">
-            <img class="w-40 h-40 object-contain" src="${pokemonGif}">
+            <img class="w-40 h-40 object-contain" src="${pokemon.sprites.front_default}">
         </div>
 
         <div class="p-5 bg-gradient-to-br ${bgColor}">
@@ -68,25 +67,34 @@ async function loadDeck() {
     renderDeck(result.rows);
 }
 
-function renderDeck(pokemons) {
+function renderDeck(pokemons){
     const deck = document.getElementById('deck');
     deck.innerHTML = '';
     pokemons.forEach((pokemon, index) => {
         const pokemonGif = pokemon.doc.sprites.other?.showdown?.front_default ?? pokemon.doc.sprites.back_default;
+        const bgColor = typeColors[pokemon.doc.types[0].type.name] || "from-slate-500 to-slate-700";
         deck.insertAdjacentHTML('beforeend', `
-        <div class="bg-white rounded-xl p-4 shadow-lg">
-            <img src ="${pokemonGif}" class="w-full h-32 object-contain">
-            <h3 class="text-black text-xl font-bold capitalize">${pokemon.doc.name}</h3>
-            <p class="text-gray-700"> lvl: ${pokemon.doc.level}</p>
-            <button id="btn-modal-${index}" data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-black bg-brand border bg-blue-700 border-transparent hover:bg-blue-800 focus:ring-1 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" type="button"> Detalhes da Carta
-            </button>
+        <div class="rounded-xl shadow-lg overflow-hidden">
+
+            <div class="bg-white/10 backdrop-blur-md flex justify-center p-2">
+                <img src="${pokemonGif}" class="w-full h-32 object-contain">
+            </div>
+
+            <div class="bg-gradient-to-br ${bgColor} p-4">
+                <h3 class="text-black text-xl font-bold capitalize">${pokemon.doc.name}</h3>
+                <p class="text-black font-bold"> lvl: ${pokemon.doc.level}</p>
+                <p class="text-black font-bold"> tipo: ${pokemon.doc.types[0].type.name}</p>
+                <button id="btn-modal-${index}" data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-black bg-brand border bg-blue-700 border-transparent hover:bg-blue-800 focus:ring-1 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" type="button"> Detalhes da Carta
+                </button>
+            </div>
+
         </div>
         `);
         document.getElementById(`btn-modal-${index}`).onclick = () => {
             showDetails(pokemon.doc);
         };
     });
-    if (typeof initFlowbite === 'function') {
+    if (typeof initFlowbite === 'function'){
         initFlowbite();
     }
 }
